@@ -64,10 +64,10 @@ def get_group(chat_id):
 # UI
 # --------------------------
 def build_text(group):
-    text = "*🌙⭐️ أكاديمية رياض الجنان ⭐️🌙*\n"
-    text += "*⭐️ بإدارة نجلاء درابسة ⭐️*\n\n"
+    text = "*🪻 أكاديمية رياض الجنان 🪻*\n"
+    text += "*🪻 بإدارة نجلاء درابسة 🪻*\n\n"
 
-    text += "*⭐️ المشاركات في الحلقة:*\n"
+    text += "*🪻 المشاركات في الحلقة:*\n"
     if group["participants"]:
         for i, (name, done) in enumerate(group["participants"].items(), start=1):
             mark = " ✅" if done else ""
@@ -75,7 +75,7 @@ def build_text(group):
     else:
         text += "لا توجد مشاركات حتى الآن 😔\n"
 
-    text += "\n*⭐️ المستمعات:*\n"
+    text += "\n*🪻 المستمعات:*\n"
     if group["listeners"]:
         for i, name in enumerate(group["listeners"], start=1):
             text += f"{i}. {rtl(name)}\n"
@@ -83,15 +83,14 @@ def build_text(group):
         text += "لا توجد مستمعات حتى الآن 🎧\n"
 
     text += (
-        "\n*📖 قال تعالى: \"شَهْرُ رَمَضانَ الَّذِي أُنْزِلَ فِيهِ الْقُرْآنُ\"*\n"
-        "*🌙 اجعلي لكِ وردًا من كتاب الله في هذا الشهر المبارك ⭐️*\n"
+    
         "*اللهم اجعل القرآن ربيع قلوبنا ونور صدورنا 🤲🏻*\n\n"
     )
 
     if group["active"]:
         text += "👇 اختاري حالتك من الأزرار بالأسفل"
     else:
-        text += "🌙⭐️ انتهت الحلقة الرمضانية ⭐️🌙"
+        text += "🪻 انتهت الحلقة 🪻"
 
     return text
 
@@ -188,19 +187,19 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
 
     if not group["active"]:
-        await query.answer("🌙 انتهت الحلقة")
+        await query.answer("🪻 انتهت الحلقة")
         return
 
     if query.data == "join":
         if name in group["participants"]:
-            await query.answer("أنتِ مشاركة بالفعل 🌙")
+            await query.answer("أنتِ مشاركة بالفعل 🪻")
             return
 
         if name in group["listeners"]:
             group["listeners"].remove(name)
 
         group["participants"][name] = False
-        await query.answer("⭐️ نيتك طيبة، ربي يبارك فيكِ")
+        await query.answer("🪻 نيتك طيبة، ربي يبارك فيكِ")
 
     elif query.data == "listen":
         if name in group["participants"]:
@@ -209,7 +208,7 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         if name not in group["listeners"]:
             group["listeners"].append(name)
-            await query.answer("🌙 نفعكِ الله بالقرآن")
+            await query.answer("🪻 نفعكِ الله بالقرآن")
 
     elif query.data == "done":
         if name not in group["participants"]:
@@ -221,7 +220,7 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
             return
 
         group["participants"][name] = True
-        await query.answer("⭐️ ما شاء الله، بارك الله فيكِ")
+        await query.answer("🪻 ما شاء الله، بارك الله فيكِ")
 
     save_state()
 
